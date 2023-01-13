@@ -29,7 +29,7 @@ const Title = styled.h1`
 const BtnDiv = styled.div`
   display: grid;
   gap: 10px;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   margin-top: 30px;
 `;
 
@@ -42,6 +42,7 @@ const Button = styled.button`
   border-radius: 10px;
   color: white;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
+  transition: all 0.1s ease-in-out;
   &:hover {
     background-color: #55efc4;
   }
