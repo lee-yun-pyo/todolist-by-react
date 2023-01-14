@@ -35,3 +35,8 @@ export const toDoSelector = selector({
       return todos.filter((todo) => todo.category === category);
   },
 });
+
+export const AddListModalState = atom<boolean>({
+  key: "addListModal",
+  default: false,
+});

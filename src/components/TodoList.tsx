@@ -1,8 +1,14 @@
 import CreateTodo from "./CreateTodo";
 import Todo from "./Todo";
-import { useRecoilValue, useRecoilState } from "recoil";
-import { toDoCategory, toDoSelector, Categories } from "../atoms";
+import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
+import {
+  toDoCategory,
+  toDoSelector,
+  Categories,
+  AddListModalState,
+} from "../atoms";
 import styled from "styled-components";
+import ModalAddList from "../etc/ModalAddList";
 
 const Container = styled.div`
   display: flex;
@@ -54,16 +60,15 @@ const Line = styled.div`
   background-color: #b2bec3;
 `;
 
-const List = styled.ul`
-  /* display: flex;
-  flex-direction: column; */
-`;
-
 function TodoList() {
   const todos = useRecoilValue(toDoSelector);
   const [category, setCategory] = useRecoilState(toDoCategory);
+  const setDisplayModal = useSetRecoilState(AddListModalState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setCategory(event.currentTarget.innerText as any);
+  };
+  const showModal = () => {
+    setDisplayModal(true);
   };
   return (
     <Container>
@@ -79,7 +84,7 @@ function TodoList() {
           <Button onClick={onClick} isActive={category === Categories.DONE}>
             {Categories.DONE}
           </Button>
-          <Button isActive={false}>
+          <Button isActive={false} onClick={showModal}>
             <i className="fa-solid fa-plus fa-lg"></i>
           </Button>
         </BtnDiv>
@@ -93,6 +98,8 @@ function TodoList() {
           ))}
         </ul>
       </div>
+
+      <ModalAddList />
     </Container>
   );
 }
