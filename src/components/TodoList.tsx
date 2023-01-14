@@ -33,10 +33,10 @@ const BtnDiv = styled.div`
   margin-top: 30px;
 `;
 
-const Button = styled.button`
+const Button = styled.button<{ isActive: boolean }>`
   padding: 15px;
   font-size: 20px;
-  background-color: #00b894;
+  background-color: ${(props) => (props.isActive ? "#55efc4" : "#00b894")};
   border: none;
   cursor: pointer;
   border-radius: 10px;
@@ -54,9 +54,9 @@ const Line = styled.div`
   background-color: #b2bec3;
 `;
 
-const List = styled.div`
-  display: flex;
-  flex-direction: column;
+const List = styled.ul`
+  /* display: flex;
+  flex-direction: column; */
 `;
 
 function TodoList() {
@@ -70,21 +70,29 @@ function TodoList() {
       <TitleAndButton>
         <Title>TO DO LIST</Title>
         <BtnDiv>
-          <Button onClick={onClick}>{Categories.TO_DO}</Button>
-          <Button onClick={onClick}>{Categories.DOING}</Button>
-          <Button onClick={onClick}>{Categories.DONE}</Button>
-          <Button>
+          <Button onClick={onClick} isActive={category === Categories.TO_DO}>
+            {Categories.TO_DO}
+          </Button>
+          <Button onClick={onClick} isActive={category === Categories.DOING}>
+            {Categories.DOING}
+          </Button>
+          <Button onClick={onClick} isActive={category === Categories.DONE}>
+            {Categories.DONE}
+          </Button>
+          <Button isActive={false}>
             <i className="fa-solid fa-plus fa-lg"></i>
           </Button>
         </BtnDiv>
       </TitleAndButton>
       <Line />
-      <List>
+      <div>
         <CreateTodo />
-        {todos?.map((todo) => (
-          <Todo key={todo.id} {...todo}></Todo>
-        ))}
-      </List>
+        <ul>
+          {todos?.map((todo) => (
+            <Todo key={todo.id} {...todo}></Todo>
+          ))}
+        </ul>
+      </div>
     </Container>
   );
 }
