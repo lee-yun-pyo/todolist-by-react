@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import { AddListModalState } from "../atoms";
+import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
+import { AddListModalState, boardState } from "../atoms";
+import { useForm } from "react-hook-form";
 
 const Modal = styled.div<{ showModal: boolean }>`
   position: fixed;
@@ -26,30 +27,10 @@ const Content = styled.div`
   width: 30%;
   padding: 35px;
   border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   transform: translateZ(1);
   transition: transform 0.25s ease-out;
   animation: mmslideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
-  @keyframes mmfadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes mmfadeOut {
-    from {
-      opacity: 1;
-    }
-    to {
-      opacity: 0;
-    }
-  }
 
   @keyframes mmslideIn {
     from {
@@ -59,15 +40,12 @@ const Content = styled.div`
       transform: translateY(0);
     }
   }
+`;
 
-  @keyframes mmslideOut {
-    from {
-      transform: translateY(0);
-    }
-    to {
-      transform: translateY(-10%);
-    }
-  }
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Input = styled.input`
@@ -83,8 +61,6 @@ const Input = styled.input`
     border-color: #00b894;
   }
 `;
-
-const BtnDiv = styled.div``;
 
 const Btn = styled.button`
   padding: 9px 13px;
@@ -106,19 +82,33 @@ const Btn = styled.button`
 `;
 
 function ModalAddList() {
+  const { register, handleSubmit, setValue } = useForm();
   const [displayModal, setDisplayModal] = useRecoilState(AddListModalState);
+  const setData = useSetRecoilState(boardState);
+  const data = useRecoilValue(boardState);
   const hideModal = () => {
     setDisplayModal(false);
+  };
+  const onValid = (data: any) => {
+    setData((prev) => {
+      return {
+        ...prev,
+        [data.newCategory]: [],
+      };
+    });
+    setValue("newCategory", "");
   };
   return (
     <Modal showModal={displayModal}>
       <Overlay onClick={hideModal} />
       <Content>
-        <Input placeholder="추가할 리스트 제목을 입력하세요." />
-        <BtnDiv>
-          <Btn onClick={hideModal}>취소</Btn>
+        <Form onSubmit={handleSubmit(onValid)}>
+          <Input
+            {...register("newCategory", { required: true })}
+            placeholder="추가할 리스트 제목을 입력하세요."
+          />
           <Btn>저장</Btn>
-        </BtnDiv>
+        </Form>
       </Content>
     </Modal>
   );

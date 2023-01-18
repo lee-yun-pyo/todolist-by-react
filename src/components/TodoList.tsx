@@ -6,6 +6,7 @@ import {
   toDoSelector,
   Categories,
   AddListModalState,
+  boardState,
 } from "../atoms";
 import styled from "styled-components";
 import ModalAddList from "../etc/ModalAddList";
@@ -64,6 +65,7 @@ function TodoList() {
   const todos = useRecoilValue(toDoSelector);
   const [category, setCategory] = useRecoilState(toDoCategory);
   const setDisplayModal = useSetRecoilState(AddListModalState);
+  const [added, setAdded] = useRecoilState(boardState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setCategory(event.currentTarget.innerText as any);
   };
@@ -84,6 +86,11 @@ function TodoList() {
           <Button onClick={onClick} isActive={category === Categories.DONE}>
             {Categories.DONE}
           </Button>
+          {Object.keys(added).map((item) => (
+            <Button onClick={onClick} isActive={category === item}>
+              {item}
+            </Button>
+          ))}
           <Button isActive={false} onClick={showModal}>
             <i className="fa-solid fa-plus fa-lg"></i>
           </Button>

@@ -22,6 +22,11 @@ export const toDoState = atom<IToDo[]>({
   default: [],
 });
 
+export const boardState = atom({
+  key: "board",
+  default: {},
+});
+
 export const toDoSelector = selector({
   key: "todoSelector",
   get: ({ get }) => {
