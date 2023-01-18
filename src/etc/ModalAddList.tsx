@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useRecoilState, useSetRecoilState, useRecoilValue } from "recoil";
-import { AddListModalState, boardState } from "../atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { AddListModalState, categoriesState } from "../atoms";
 import { useForm } from "react-hook-form";
 
 const Modal = styled.div<{ showModal: boolean }>`
@@ -84,19 +84,17 @@ const Btn = styled.button`
 function ModalAddList() {
   const { register, handleSubmit, setValue } = useForm();
   const [displayModal, setDisplayModal] = useRecoilState(AddListModalState);
-  const setData = useSetRecoilState(boardState);
-  const data = useRecoilValue(boardState);
+  const [categories, setCategories] = useRecoilState(categoriesState);
   const hideModal = () => {
     setDisplayModal(false);
   };
   const onValid = (data: any) => {
-    setData((prev) => {
-      return {
-        ...prev,
-        [data.newCategory]: [],
-      };
-    });
-    setValue("newCategory", "");
+    if (categories.includes(data.newCategory)) {
+      window.alert("동일한 이름이 존재합니다.");
+    } else {
+      setCategories((prev) => [...prev, data.newCategory]);
+      setValue("newCategory", "");
+    }
   };
   return (
     <Modal showModal={displayModal}>

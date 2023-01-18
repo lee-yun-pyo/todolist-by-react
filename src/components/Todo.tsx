@@ -1,5 +1,5 @@
-import { useSetRecoilState } from "recoil";
-import { IToDo, toDoState, Categories } from "../atoms";
+import { useSetRecoilState, useRecoilValue } from "recoil";
+import { IToDo, toDoState, categoriesState } from "../atoms";
 import styled from "styled-components";
 
 const List = styled.li`
@@ -30,11 +30,16 @@ const Btn = styled.button`
   &:hover {
     background-color: rgba(0, 0, 0, 0.1);
   }
+  :last-child {
+    background-color: #ffe0e6;
+    color: #f3214f;
+  }
 `;
 
 function Todo({ text, id, category }: IToDo) {
   const setTodos = useSetRecoilState(toDoState);
-  const onClick = (newCategory: IToDo["category"]) => {
+  const categories = useRecoilValue(categoriesState);
+  const onClick = (newCategory: any) => {
     setTodos((oldTodos) => {
       const targetIndex = oldTodos.findIndex((toDo) => toDo.id === id);
       return [
@@ -48,15 +53,15 @@ function Todo({ text, id, category }: IToDo) {
     <List>
       <Text>{text}</Text>
       <BtnDiv>
-        {category !== Categories.TO_DO && (
-          <Btn onClick={() => onClick(Categories.TO_DO)}>TO_DO</Btn>
-        )}
-        {category !== Categories.DOING && (
-          <Btn onClick={() => onClick(Categories.DOING)}>DOING</Btn>
-        )}
-        {category !== Categories.DONE && (
-          <Btn onClick={() => onClick(Categories.DONE)}>DONE</Btn>
-        )}
+        {categories.map((cate) => (
+          <Btn
+            key={cate}
+            disabled={category === cate}
+            onClick={() => onClick(cate)}
+          >
+            {cate}
+          </Btn>
+        ))}
         <Btn>
           <i className="fa-solid fa-trash"></i>
         </Btn>

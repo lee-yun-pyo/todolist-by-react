@@ -4,9 +4,8 @@ import { useRecoilValue, useRecoilState, useSetRecoilState } from "recoil";
 import {
   toDoCategory,
   toDoSelector,
-  Categories,
   AddListModalState,
-  boardState,
+  categoriesState,
 } from "../atoms";
 import styled from "styled-components";
 import ModalAddList from "../etc/ModalAddList";
@@ -65,7 +64,7 @@ function TodoList() {
   const todos = useRecoilValue(toDoSelector);
   const [category, setCategory] = useRecoilState(toDoCategory);
   const setDisplayModal = useSetRecoilState(AddListModalState);
-  const [added, setAdded] = useRecoilState(boardState);
+  const categories = useRecoilValue(categoriesState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setCategory(event.currentTarget.innerText as any);
   };
@@ -77,18 +76,9 @@ function TodoList() {
       <TitleAndButton>
         <Title>TO DO LIST</Title>
         <BtnDiv>
-          <Button onClick={onClick} isActive={category === Categories.TO_DO}>
-            {Categories.TO_DO}
-          </Button>
-          <Button onClick={onClick} isActive={category === Categories.DOING}>
-            {Categories.DOING}
-          </Button>
-          <Button onClick={onClick} isActive={category === Categories.DONE}>
-            {Categories.DONE}
-          </Button>
-          {Object.keys(added).map((item) => (
-            <Button onClick={onClick} isActive={category === item}>
-              {item}
+          {categories.map((cate) => (
+            <Button key={cate} onClick={onClick} isActive={category === cate}>
+              {cate}
             </Button>
           ))}
           <Button isActive={false} onClick={showModal}>
