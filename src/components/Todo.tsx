@@ -1,6 +1,7 @@
 import { useSetRecoilState, useRecoilValue } from "recoil";
 import { IToDo, toDoState, categoriesState } from "../atoms";
 import styled from "styled-components";
+import React from "react";
 
 const List = styled.li`
   background-color: white;
@@ -49,8 +50,21 @@ function Todo({ text, id, category }: IToDo) {
       ];
     });
   };
+  const deleteTodo = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const deleteList = event.currentTarget.parentNode
+      ?.parentNode as HTMLElement | null;
+    setTodos((oldTodos) => {
+      const targetIndex = oldTodos.findIndex(
+        (toDo) => toDo.id === Number(deleteList?.id)
+      );
+      return [
+        ...oldTodos.slice(0, targetIndex),
+        ...oldTodos.slice(targetIndex + 1),
+      ];
+    });
+  };
   return (
-    <List>
+    <List id={id.toString()}>
       <Text>{text}</Text>
       <BtnDiv>
         {categories.map((cate) => (
@@ -62,7 +76,7 @@ function Todo({ text, id, category }: IToDo) {
             {cate}
           </Btn>
         ))}
-        <Btn>
+        <Btn onClick={deleteTodo}>
           <i className="fa-solid fa-trash"></i>
         </Btn>
       </BtnDiv>
