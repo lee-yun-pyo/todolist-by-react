@@ -12,11 +12,10 @@ import ModalAddList from "../etc/ModalAddList";
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
-  padding: 35px;
+  max-width: 500px;
+  margin: 30px auto;
   background-color: #ecf0f1;
 `;
 
@@ -40,7 +39,7 @@ const BtnDiv = styled.div`
 `;
 
 const Button = styled.button<{ isActive: boolean }>`
-  padding: 15px;
+  padding: 15px 10px;
   font-size: 20px;
   background-color: ${(props) => (props.isActive ? "#55efc4" : "#00b894")};
   border: none;
@@ -49,15 +48,28 @@ const Button = styled.button<{ isActive: boolean }>`
   color: white;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.1s ease-in-out;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 110px;
   &:hover {
     background-color: #55efc4;
   }
 `;
 
 const Line = styled.div`
-  width: 1px;
-  height: 100%;
+  height: 1px;
+  width: 90%;
   background-color: #b2bec3;
+  margin: 30px 0;
+`;
+
+const SubContainer = styled.div`
+  width: 470px;
+`;
+
+const TodoLists = styled.ul`
+  width: inherit;
 `;
 
 function TodoList() {
@@ -87,15 +99,14 @@ function TodoList() {
         </BtnDiv>
       </TitleAndButton>
       <Line />
-      <div>
+      <SubContainer>
         <CreateTodo />
-        <ul>
+        <TodoLists>
           {todos?.map((todo) => (
             <Todo key={todo.id} {...todo}></Todo>
           ))}
-        </ul>
-      </div>
-
+        </TodoLists>
+      </SubContainer>
       <ModalAddList />
     </Container>
   );

@@ -20,20 +20,29 @@ const Text = styled.span`
 
 const BtnDiv = styled.div``;
 
-const Btn = styled.button`
+const Btn = styled.button<{ isCategory: boolean }>`
   border: none;
   border-radius: 6px;
   padding: 7px;
   font-size: 10px;
   font-weight: 600;
-  margin-right: 6px;
-  cursor: pointer;
+  margin-right: 8px;
+  margin-bottom: 5px;
+  max-width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: ${(props) => (props.isCategory ? "auto" : "pointer")};
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: ${(props) =>
+      props.isCategory ? "none" : " rgba(0, 0, 0, 0.1)"};
   }
   :last-child {
     background-color: #ffe0e6;
     color: #f3214f;
+    &:hover {
+      background-color: rgb(240, 211, 217);
+    }
   }
 `;
 
@@ -69,6 +78,7 @@ function Todo({ text, id, category }: IToDo) {
       <BtnDiv>
         {categories.map((cate) => (
           <Btn
+            isCategory={category === cate}
             key={cate}
             disabled={category === cate}
             onClick={() => onClick(cate)}
@@ -76,7 +86,7 @@ function Todo({ text, id, category }: IToDo) {
             {cate}
           </Btn>
         ))}
-        <Btn onClick={deleteTodo}>
+        <Btn isCategory={false} onClick={deleteTodo}>
           <i className="fa-solid fa-trash"></i>
         </Btn>
       </BtnDiv>

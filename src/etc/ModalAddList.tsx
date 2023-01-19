@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import { AddListModalState, categoriesState } from "../atoms";
 import { useForm } from "react-hook-form";
 
@@ -94,6 +94,7 @@ function ModalAddList() {
     } else {
       setCategories((prev) => [...prev, data.newCategory]);
       setValue("newCategory", "");
+      setDisplayModal(false);
     }
   };
   return (
