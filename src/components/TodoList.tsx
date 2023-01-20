@@ -10,6 +10,7 @@ import {
 } from "../atoms";
 import styled from "styled-components";
 import ModalAddList from "../etc/ModalAddList";
+import GithubBtn from "../etc/GithubBtn";
 
 const Container = styled.div`
   display: flex;
@@ -177,6 +178,7 @@ function TodoList() {
         </TodoLists>
       </SubContainer>
       <ModalAddList />
+      <GithubBtn />
     </Container>
   );
 }
