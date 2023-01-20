@@ -124,6 +124,7 @@ function TodoList() {
   const [allTodos, setAllTodos] = useRecoilState(toDoState);
   const [category, setCategory] = useRecoilState(toDoCategory);
   const setDisplayModal = useSetRecoilState(AddListModalState);
+  const [categories, setCategories] = useRecoilState(categoriesState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setCategory(event.currentTarget.innerText as any);
   };
@@ -131,6 +132,10 @@ function TodoList() {
     setDisplayModal(true);
   };
   const deleteAll = () => {
+    setAllTodos((prev) => prev.filter((todo) => todo.category !== category));
+  };
+  const deleteCategory = () => {
+    setCategories((prev) => prev.filter((cate) => cate !== category));
     setAllTodos((prev) => prev.filter((todo) => todo.category !== category));
   };
   const categoryInTodos = allTodos.map((todo) => todo.category);
@@ -161,6 +166,7 @@ function TodoList() {
       <Line />
       <DeleteBtnDiv>
         <DeleteBtn onClick={deleteAll}>리스트 전체 삭제</DeleteBtn>
+        <DeleteBtn onClick={deleteCategory}>현재 카테고리 삭제</DeleteBtn>
       </DeleteBtnDiv>
       <SubContainer>
         <CreateTodo />
