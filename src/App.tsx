@@ -26,6 +26,9 @@ time, mark, audio, video {
 body {
   background-color: #ecf0f1;
 }
+* {
+  font-family: 'Noto Sans KR', sans-serif;
+}
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, main, menu, nav, section {
@@ -37,7 +40,6 @@ footer, header, hgroup, main, menu, nav, section {
 }
 body {
   line-height: 1;
-  font-family: 'Source Sans Pro', sans-serif;
 }
 menu, ol, ul {
   list-style: none;
