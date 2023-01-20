@@ -24,7 +24,7 @@ const Overlay = styled.div`
 const Content = styled.div`
   background-color: #fff;
   position: relative;
-  width: 30%;
+  width: 440px;
   padding: 35px;
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
@@ -58,7 +58,7 @@ const Input = styled.input`
   margin-bottom: 20px;
   &:focus {
     outline: none;
-    border-color: #00b894;
+    border-color: #273c75;
   }
 `;
 
@@ -66,7 +66,7 @@ const Btn = styled.button`
   padding: 9px 13px;
   font-size: 14px;
   font-weight: 600;
-  background-color: #00b894;
+  background-color: #273c75;
   border: none;
   cursor: pointer;
   border-radius: 10px;
@@ -74,7 +74,7 @@ const Btn = styled.button`
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.1s ease-in-out;
   &:hover {
-    background-color: #55efc4;
+    background-color: #40739e;
   }
   :first-child {
     margin-right: 10px;

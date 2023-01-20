@@ -5,10 +5,9 @@ import React from "react";
 
 const List = styled.li`
   background-color: white;
-  margin-bottom: 14px;
+  margin-bottom: 18px;
   padding: 15px;
   border-radius: 14px;
-  border: 1px solid #00b894;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 

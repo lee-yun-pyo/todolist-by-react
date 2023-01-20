@@ -23,7 +23,7 @@ const Input = styled.input`
   width: 400px;
   &:focus {
     outline: none;
-    border-color: #00b894;
+    border-color: #273c75;
   }
 `;
 const ErrorMessage = styled.span<{ message: string | undefined }>`
@@ -33,7 +33,7 @@ const ErrorMessage = styled.span<{ message: string | undefined }>`
   left: 10px;
   font-size: 16px;
   background-color: white;
-  border: 3px solid #00b894;
+  border: 3px solid #273c75;
   padding: 12px 18px;
   border-radius: 20px;
   border-bottom-left-radius: 0;
@@ -41,7 +41,7 @@ const ErrorMessage = styled.span<{ message: string | undefined }>`
 
 const SaveBtn = styled.button`
   border: none;
-  background-color: #00b894;
+  background-color: #273c75;
   border-radius: 10px;
   padding: 15px 22px;
   color: white;
@@ -49,7 +49,7 @@ const SaveBtn = styled.button`
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
   transition: all 0.1s ease-in-out;
   &:hover {
-    background-color: #55efc4;
+    background-color: #40739e;
   }
 `;
 
