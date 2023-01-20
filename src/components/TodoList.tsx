@@ -43,10 +43,12 @@ const BtnDiv = styled.div<{ isActive: boolean }>`
   position: relative;
   border-radius: 10px;
   box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
-  max-width: 110px;
+  width: 110px;
   background-color: ${(props) => (props.isActive ? "#40739e" : "#273c75")};
+  transition: all 0.2s ease 0s;
   &:hover {
     background-color: #40739e;
+    transform: translateY(-4px);
   }
 `;
 const Button = styled.button`
@@ -69,10 +71,7 @@ const Circle = styled.span<{ count: number }>`
   font-size: 19px;
   color: #fff;
   padding: 6px 10px;
-  border-bottom-left-radius: 50%;
-  border-bottom-right-radius: 50%;
-  border-top-left-radius: 50%;
-  border-top-right-radius: 50%;
+  border-radius: 100px;
   position: absolute;
   top: -10px;
   right: -12px;
@@ -82,7 +81,34 @@ const Line = styled.div`
   height: 1px;
   width: 100%;
   background-color: #b2bec3;
-  margin: 30px 0;
+  margin-top: 30px;
+`;
+
+const DeleteBtnDiv = styled.div`
+  width: 100%;
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  padding: 20px;
+`;
+
+const DeleteBtn = styled.button`
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background-color: #fff;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease 0s;
+  &:hover {
+    background-color: #273c75;
+    color: rgba(255, 255, 255, 0.9);
+    transform: translateY(-4px);
+  }
 `;
 
 const SubContainer = styled.div`
@@ -95,21 +121,23 @@ const TodoLists = styled.ul`
 
 function TodoList() {
   const todos = useRecoilValue(toDoSelector);
-  const allTodos = useRecoilValue(toDoState);
+  const [allTodos, setAllTodos] = useRecoilState(toDoState);
   const [category, setCategory] = useRecoilState(toDoCategory);
   const setDisplayModal = useSetRecoilState(AddListModalState);
-  const categories = useRecoilValue(categoriesState);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setCategory(event.currentTarget.innerText as any);
   };
   const showModal = () => {
     setDisplayModal(true);
   };
+  const deleteAll = () => {
+    setAllTodos((prev) => prev.filter((todo) => todo.category !== category));
+  };
   const categoryInTodos = allTodos.map((todo) => todo.category);
   return (
     <Container>
       <TitleAndButton>
-        <Title>TO DO LIST</Title>
+        <Title>To Do List</Title>
         <BtnContainer>
           {categories.map((cate) => (
             <BtnDiv key={cate} isActive={category === cate}>
@@ -131,6 +159,9 @@ function TodoList() {
         </BtnContainer>
       </TitleAndButton>
       <Line />
+      <DeleteBtnDiv>
+        <DeleteBtn onClick={deleteAll}>리스트 전체 삭제</DeleteBtn>
+      </DeleteBtnDiv>
       <SubContainer>
         <CreateTodo />
         <TodoLists>
