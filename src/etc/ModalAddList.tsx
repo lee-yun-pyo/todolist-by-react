@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import { AddListModalState, categoriesState, toDoCategory } from "../atoms";
+import {
+  AddListModalState,
+  categoriesState,
+  selectedCategoryState,
+} from "../atoms";
 import { useForm } from "react-hook-form";
 
 const Modal = styled.div<{ showModal: boolean }>`
@@ -14,6 +18,7 @@ const Modal = styled.div<{ showModal: boolean }>`
   align-items: center;
   display: ${(props) => (props.showModal ? "" : "none")};
 `;
+
 const Overlay = styled.div`
   background-color: rgba(0, 0, 0, 0.2);
   width: 100%;
@@ -31,7 +36,6 @@ const Content = styled.div`
   transform: translateZ(1);
   transition: transform 0.25s ease-out;
   animation: mmslideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
-
   @keyframes mmslideIn {
     from {
       transform: translateY(15%);
@@ -85,17 +89,17 @@ function ModalAddList() {
   const { register, handleSubmit, setValue } = useForm();
   const [displayModal, setDisplayModal] = useRecoilState(AddListModalState);
   const [categories, setCategories] = useRecoilState(categoriesState);
-  const setCategory = useSetRecoilState(toDoCategory);
+  const setCurrentCategory = useSetRecoilState(selectedCategoryState);
   const hideModal = () => {
     setDisplayModal(false);
   };
-  const onValid = (data: any) => {
+  const addCategory = (data: any) => {
     if (categories.includes(data.newCategory)) {
       window.alert("동일한 이름이 존재합니다.");
     } else {
       setCategories((prev) => [...prev, data.newCategory]);
       setValue("newCategory", "");
-      setCategory(data.newCategory);
+      setCurrentCategory(data.newCategory);
       setDisplayModal(false);
     }
   };
@@ -103,7 +107,7 @@ function ModalAddList() {
     <Modal showModal={displayModal}>
       <Overlay onClick={hideModal} />
       <Content>
-        <Form onSubmit={handleSubmit(onValid)}>
+        <Form onSubmit={handleSubmit(addCategory)}>
           <Input
             {...register("newCategory", { required: true })}
             placeholder="추가할 리스트 제목을 입력하세요."

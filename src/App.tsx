@@ -1,5 +1,5 @@
 import React from "react";
-import TodoList from "./components/TodoList";
+import Home from "./components/Home";
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
@@ -69,7 +69,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <TodoList />
+      <Home />
     </>
   );
 }

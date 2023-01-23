@@ -15,7 +15,7 @@ export const categoriesState = atom<string[]>({
   effects_UNSTABLE: [persistAtom],
 });
 
-export const toDoCategory = atom<string>({
+export const selectedCategoryState = atom<string>({
   key: "category",
   default: "TO_DO",
 });
@@ -30,7 +30,7 @@ export const toDoSelector = selector({
   key: "todoSelector",
   get: ({ get }) => {
     const todos = get(toDoState);
-    const category = get(toDoCategory);
+    const category = get(selectedCategoryState);
     return todos.filter((todo) => todo.category === category);
   },
 });

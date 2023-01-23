@@ -48,7 +48,7 @@ const Btn = styled.button<{ isCategory: boolean }>`
 function Todo({ text, id, category }: IToDo) {
   const setTodos = useSetRecoilState(toDoState);
   const categories = useRecoilValue(categoriesState);
-  const onClick = (newCategory: any) => {
+  const changeCategoryOfTodo = (newCategory: any) => {
     setTodos((oldTodos) => {
       const targetIndex = oldTodos.findIndex((toDo) => toDo.id === id);
       return [
@@ -80,7 +80,7 @@ function Todo({ text, id, category }: IToDo) {
             isCategory={category === cate}
             key={cate}
             disabled={category === cate}
-            onClick={() => onClick(cate)}
+            onClick={() => changeCategoryOfTodo(cate)}
           >
             {cate}
           </Btn>

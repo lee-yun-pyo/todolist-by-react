@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useSetRecoilState, useRecoilValue } from "recoil";
-import { categoriesState, toDoCategory, toDoState } from "../atoms";
+import { categoriesState, selectedCategoryState, toDoState } from "../atoms";
 import styled from "styled-components";
 
 interface IForm {
@@ -56,7 +56,7 @@ const SaveBtn = styled.button`
 function CreateTodo() {
   const categories = useRecoilValue(categoriesState);
   const setTodos = useSetRecoilState(toDoState);
-  const category = useRecoilValue(toDoCategory);
+  const category = useRecoilValue(selectedCategoryState);
   const {
     register,
     setValue,
