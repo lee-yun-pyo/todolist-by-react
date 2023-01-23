@@ -36,6 +36,9 @@ const Content = styled.div`
   transform: translateZ(1);
   transition: transform 0.25s ease-out;
   animation: mmslideIn 0.3s cubic-bezier(0, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   @keyframes mmslideIn {
     from {
       transform: translateY(15%);
@@ -46,42 +49,59 @@ const Content = styled.div`
   }
 `;
 
+const Icon = styled.i`
+  color: #273c75;
+  margin-bottom: 30px;
+`;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 `;
 
 const Input = styled.input`
   padding: 13px;
   border-radius: 10px;
-  font-size: 15px;
+  font-size: 18px;
   border: none;
   border: 2px solid rgba(0, 0, 0, 0.3);
   width: 100%;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   &:focus {
     outline: none;
     border-color: #273c75;
   }
 `;
 
+const BtnDiv = styled.div`
+  display: flex;
+`;
+
 const Btn = styled.button`
-  padding: 9px 13px;
-  font-size: 14px;
-  font-weight: 600;
-  background-color: #273c75;
+  width: 90px;
+  height: 45px;
+  font-size: 17px;
+  background-color: rgba(39, 60, 117, 0.9);
   border: none;
   cursor: pointer;
-  border-radius: 10px;
+  border-radius: 7px;
   color: white;
-  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3);
   transition: all 0.1s ease-in-out;
   &:hover {
-    background-color: #40739e;
+    background-color: rgb(39, 60, 117);
+    box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.05);
   }
   :first-child {
-    margin-right: 10px;
+    margin-right: 20px;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    color: rgba(0, 0, 0, 0.5);
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+      box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.05);
+    }
   }
 `;
 
@@ -107,12 +127,18 @@ function ModalAddList() {
     <Modal showModal={displayModal}>
       <Overlay onClick={hideModal} />
       <Content>
+        <Icon className="fa-solid fa-folder-plus fa-5x"></Icon>
         <Form onSubmit={handleSubmit(addCategory)}>
           <Input
             {...register("newCategory", { required: true })}
-            placeholder="추가할 리스트 제목을 입력하세요."
+            placeholder="추가할 카테고리 제목을 입력하세요."
           />
-          <Btn>저장</Btn>
+          <BtnDiv>
+            <Btn onClick={hideModal} type="button">
+              Close
+            </Btn>
+            <Btn type="submit">Save</Btn>
+          </BtnDiv>
         </Form>
       </Content>
     </Modal>
