@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useRecoilState } from "recoil";
-import { AddListModalState, categoriesState } from "../atoms";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import { AddListModalState, categoriesState, toDoCategory } from "../atoms";
 import { useForm } from "react-hook-form";
 
 const Modal = styled.div<{ showModal: boolean }>`
@@ -85,6 +85,7 @@ function ModalAddList() {
   const { register, handleSubmit, setValue } = useForm();
   const [displayModal, setDisplayModal] = useRecoilState(AddListModalState);
   const [categories, setCategories] = useRecoilState(categoriesState);
+  const setCategory = useSetRecoilState(toDoCategory);
   const hideModal = () => {
     setDisplayModal(false);
   };
@@ -94,6 +95,7 @@ function ModalAddList() {
     } else {
       setCategories((prev) => [...prev, data.newCategory]);
       setValue("newCategory", "");
+      setCategory(data.newCategory);
       setDisplayModal(false);
     }
   };

@@ -11,6 +11,7 @@ import {
 import styled from "styled-components";
 import ModalAddList from "../etc/ModalAddList";
 import GithubBtn from "../etc/GithubBtn";
+import { useEffect } from "react";
 
 const Container = styled.div`
   display: flex;
@@ -126,6 +127,9 @@ function TodoList() {
   const [category, setCategory] = useRecoilState(toDoCategory);
   const setDisplayModal = useSetRecoilState(AddListModalState);
   const [categories, setCategories] = useRecoilState(categoriesState);
+  useEffect(() => {
+    setCategory(categories[0]);
+  }, []);
   const onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setCategory(event.currentTarget.innerText as any);
   };
@@ -138,6 +142,7 @@ function TodoList() {
   const deleteCategory = () => {
     setCategories((prev) => prev.filter((cate) => cate !== category));
     setAllTodos((prev) => prev.filter((todo) => todo.category !== category));
+    setCategory(categories[0] === category ? categories[1] : categories[0]);
   };
   const categoryInTodos = allTodos.map((todo) => todo.category);
   return (

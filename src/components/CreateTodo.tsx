@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useSetRecoilState, useRecoilValue } from "recoil";
-import { toDoCategory, toDoState } from "../atoms";
+import { categoriesState, toDoCategory, toDoState } from "../atoms";
 import styled from "styled-components";
 
 interface IForm {
@@ -54,6 +54,7 @@ const SaveBtn = styled.button`
 `;
 
 function CreateTodo() {
+  const categories = useRecoilValue(categoriesState);
   const setTodos = useSetRecoilState(toDoState);
   const category = useRecoilValue(toDoCategory);
   const {
@@ -76,10 +77,18 @@ function CreateTodo() {
           {errors?.todo?.message}
         </ErrorMessage>
         <Input
-          {...register("todo", { required: "내용을 입력하세요" })}
-          placeholder={category + "에 추가할 내용을 입력하세요"}
+          {...register("todo", {
+            required: "내용을 입력하세요",
+            disabled: categories.length === 0 ? true : false,
+          })}
+          placeholder={
+            categories.length === 0
+              ? "카테고리를 추가해주세요"
+              : category + "에 추가할 내용을 입력하세요"
+          }
+          disabled={categories.length === 0}
         />
-        <SaveBtn>
+        <SaveBtn disabled={categories.length === 0}>
           <i className="fa-solid fa-paper-plane fa-lg"></i>
         </SaveBtn>
       </Form>
