@@ -12,6 +12,11 @@ const Container = styled.div`
   gap: 15px;
   grid-template-columns: repeat(4, 1fr);
   margin-top: 50px;
+  @media (max-width: 420px) {
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 42px;
+    gap: 18px;
+  }
 `;
 
 const BtnDiv = styled.div<{ isActive: boolean }>`
@@ -24,6 +29,9 @@ const BtnDiv = styled.div<{ isActive: boolean }>`
   &:hover {
     background-color: #40739e;
     transform: translateY(-4px);
+  }
+  @media (max-width: 420px) {
+    width: 104px;
   }
 `;
 
@@ -51,6 +59,9 @@ const Circle = styled.span<{ count: number }>`
   position: absolute;
   top: -10px;
   right: -12px;
+  @media (max-width: 420px) {
+    font-size: 17px;
+  }
 `;
 
 function CategorysBtns() {

@@ -25,6 +25,9 @@ const Input = styled.input`
     outline: none;
     border-color: #273c75;
   }
+  @media (max-width: 420px) {
+    font-size: 15px;
+  }
 `;
 const ErrorMessage = styled.span<{ message: string | undefined }>`
   position: absolute;
@@ -37,6 +40,9 @@ const ErrorMessage = styled.span<{ message: string | undefined }>`
   padding: 12px 18px;
   border-radius: 20px;
   border-bottom-left-radius: 0;
+  @media (max-width: 420px) {
+    font-size: 14px;
+  }
 `;
 
 const SaveBtn = styled.button`

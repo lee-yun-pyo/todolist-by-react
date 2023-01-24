@@ -27,6 +27,9 @@ const Button = styled.button`
     color: rgba(255, 255, 255, 0.9);
     transform: translateY(-4px);
   }
+  @media (max-width: 420px) {
+    font-size: 14px;
+  }
 `;
 
 function DeleteBtns() {

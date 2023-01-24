@@ -47,11 +47,18 @@ const Content = styled.div`
       transform: translateY(0);
     }
   }
+  @media (max-width: 420px) {
+    width: 330px;
+    padding: 30px;
+  }
 `;
 
 const Icon = styled.i`
   color: #273c75;
   margin-bottom: 30px;
+  @media (max-width: 420px) {
+    margin-bottom: 25px;
+  }
 `;
 
 const Form = styled.form`
@@ -72,6 +79,10 @@ const Input = styled.input`
   &:focus {
     outline: none;
     border-color: #273c75;
+  }
+  @media (max-width: 420px) {
+    font-size: 16px;
+    margin-bottom: 20px;
   }
 `;
 
@@ -102,6 +113,10 @@ const Btn = styled.button`
       background-color: rgba(0, 0, 0, 0.05);
       box-shadow: 0px 7px 8px rgba(0, 0, 0, 0.05);
     }
+  }
+  @media (max-width: 420px) {
+    width: 75px;
+    height: 40px;
   }
 `;
 

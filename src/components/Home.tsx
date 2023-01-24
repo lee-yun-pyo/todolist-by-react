@@ -28,6 +28,9 @@ const TitleAndButton = styled.div`
 const Title = styled.h1`
   font-size: 50px;
   font-weight: 600;
+  @media (max-width: 420px) {
+    font-size: 40px;
+  }
 `;
 
 const Line = styled.div`
@@ -35,10 +38,16 @@ const Line = styled.div`
   width: 100%;
   background-color: #b2bec3;
   margin-top: 30px;
+  @media (max-width: 420px) {
+    width: 95%;
+  }
 `;
 
 const SubContainer = styled.div`
   width: 470px;
+  @media (max-width: 420px) {
+    width: 350px;
+  }
 `;
 
 const TodoLists = styled.ul`
